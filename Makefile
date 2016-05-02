@@ -62,9 +62,18 @@ oci-validate-json: validate.go
 oci-validate-examples: cmd/oci-validate-examples/main.go
 	go build ./cmd/oci-validate-examples
 
+oci-image-tool:
+	go build ./cmd/oci-image-tool
+
 media-types.png: media-types.dot
 
 %.png: %.dot
 	dot -Tpng $^ > $@
 
-.PHONY: validate-examples
+statik:
+	rm -f oci/statik/statik.go && \
+	statik -dest oci -src=./schema
+
+.PHONY: \
+	validate-examples \
+	statik
